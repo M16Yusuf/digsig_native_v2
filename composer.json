@@ -1,0 +1,8 @@
+{
+    "require": {
+        "starkbank/ecdsa": "^2.1",
+        "chillerlan/php-qrcode": "^5.0",
+        "setasign/fpdf": "^1.8.2",
+        "setasign/fpdi": "^2.6"
+    }
+}

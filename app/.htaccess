@@ -1,0 +1,3 @@
+# kalo ada user yang membuka folder 'App' dan folder didalamnya
+# selama tidak ada file index maka jangan tampilkan isi foldernya
+Options -Indexes

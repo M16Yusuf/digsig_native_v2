@@ -1,0 +1,22 @@
+# Menghindari kesalahan atau ambigu saat memanggil folder/file
+# pada directory public 
+Options -Multiviews
+
+# Mengaktifkan modul mode rewrite
+RewriteEngine On
+
+# Allow direct access to the upload directory
+# RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
+# RewriteRule ^ - [L]
+
+# If the following conditions are true, then rewrite the URL:
+# If the requested filename is not a directory,
+RewriteCond %{REQUEST_FILENAME} !-d
+# and if the requested filename is not a regular file that exists,
+RewriteCond %{REQUEST_FILENAME} !-f
+# and if the requested filename is not a symbolic link,
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# '^(.*)$' = apapun yang dituliskan url, arahkan ke placeholder '$1' pada index.php 
+# [L] = kalo ada rule yang sudah terpenuhi jangan jalankan rule lain setelah ini
+RewriteRule ^(.*)$ index.php?url=$1 [L]

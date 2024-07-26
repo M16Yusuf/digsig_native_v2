@@ -41,7 +41,7 @@ class Pengajuan extends Controller
 
         // pengecekan extensi
         if (!in_array($ext, $ext_boleh)) {
-            Flasher::setFlash('lembar pengajuan ', ' bukan format yang dianjurkan', 'warning');
+            Flasher::setFlash('lembar pengajuan ', ' bukan format yang dianjurkan', 'danger');
             header('location: ' . BASEURL . '/pengajuan');
             exit;
         } else {

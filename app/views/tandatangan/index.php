@@ -1,51 +1,55 @@
-<div class="container">
+<div class="container d-flex justify-content-center align-items-center">
 
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <!-- flasher output informasi -->
-                    <?php Flasher::flash(); ?>
 
-                    <!-- table  -->
-                    <div class="table-scroll">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Judul</th>
-                                    <th scope="col">Nama Pengaju</th>
-                                    <th scope="col">tanggal pengajuan</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                <?php foreach ($data['data_pengajuan'] as $k) : ?>
-                                    <tr>
-                                        <th scope="col"> <?= $i++; ?></th>
-                                        <td> <?= $k['subjek']; ?> </td>
-                                        <td> <?= $k['nama']; ?></td>
-                                        <td> <?= $k['created_at']; ?></td>
-                                        <td> 
-                                            <?php
-                                            if ($k['ttd_kaprodi'] == 0) {
-                                                echo '<i class="fa-solid fa-circle-xmark" style="color: grey;"></i> kaprodi belum';
-                                            } else {
-                                                echo '<i class="fa-solid fa-circle-check" style="color: green;"></i> kaprodi Sudah';
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <a href="<?= BASEURL; ?>/tandatangan/detail/<?= $k['id_lembar']; ?>" class="btn btn-primary mb-3"> detail </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-
+    <div class="card w-100 w-md-75 w-lg-50">
+        <div class="card-header">
+            <form action="<?= BASEURL; ?>/tandatangan/cari" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Cari berdasar subjek ..." name="key_subjek" id="key_subjek">
+                    <button class="btn btn-primary" type="submit" id="cari_subjek"><i class="lni lni-search-alt"></i></button>
                 </div>
+            </form>
+        </div>
+        <div class="card-body scrollable-list">
+            <!-- flasher output informasi -->
+            <?php Flasher::flash(); ?>
+
+            <!-- table  -->
+            <div class="table-scroll">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Nama Pengaju</th>
+                            <th scope="col">tanggal pengajuan</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($data['data_pengajuan'] as $k) : ?>
+                            <tr>
+                                <th scope="col"> <?= $i++; ?></th>
+                                <td> <?= $k['subjek']; ?> </td>
+                                <td> <?= $k['nama']; ?></td>
+                                <td> <?= $k['created_at']; ?></td>
+                                <td>
+                                    <?php
+                                    if ($k['ttd_kaprodi'] == 0) {
+                                        echo '<i class="fa-solid fa-circle-xmark" style="color: grey;"></i> kaprodi belum';
+                                    } else {
+                                        echo '<i class="fa-solid fa-circle-check" style="color: green;"></i> kaprodi Sudah';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <a href="<?= BASEURL; ?>/tandatangan/detail/<?= $k['id_lembar']; ?>" class="btn btn-primary mb-3"> detail </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -48,10 +48,10 @@ class Tandatangan extends Controller
         $re_b68 = \EllipticCurve\Signature::fromBase64($sig_b64);
 
         // QRcode render option ("chillerlan/php-qrcode" version ="^5.0")
-        //membuat qrco
         $myoptions = new QROptions;
         $myoptions->version          = 7;
         $myoptions->outputType       = QROutputInterface::GDIMAGE_PNG;
+        $myoptions->outputBase64     = false;
         $myoptions->quality          = 90;
         $myoptions->scale            = 20;
         $myoptions->bgColor          = [200, 150, 200];
@@ -62,7 +62,8 @@ class Tandatangan extends Controller
             QRMatrix::M_FINDER_DOT,
             QRMatrix::M_ALIGNMENT_DARK,
         ];
-        $myoptions->outputBase64     = false;
+        
+        // logo render optionn 
         // ecc level H is required for logo space
         $optionslogo = new QROptions([
             'version'             => 5,
@@ -123,5 +124,18 @@ class Tandatangan extends Controller
             header('Location:' . BASEURL . '/tandatangan/detail/'.$id);
             exit;
         }
+    }
+
+    // cari data
+    public function cari()
+    {
+        $subjek = $_POST['key_subjek'];
+        $data['title'] = 'Dashboard pengajuan';
+        $data['data_pengajuan'] = $this->model('pengajuan_model')->cariDataPengajuan($subjek);
+        // tampilkan view dengan data 
+        $this->view('templates/header', $data);
+        $this->view('tandatangan/index', $data);
+        $this->view('templates/footer');
+        
     }
 }

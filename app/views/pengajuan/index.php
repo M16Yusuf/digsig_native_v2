@@ -12,7 +12,7 @@
                     <div class="p-1">
                         <form action="<?= BASEURL; ?>/pengajuan/cari" method="post">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari subjek ..." name="key_subjek" id="key_subjek">
+                                <input type="text" class="form-control" placeholder="Cari berdasar subjek ..." name="key_subjek" id="key_subjek">
                                 <button class="btn btn-primary" type="submit" id="cari_subjek"><i class="lni lni-search-alt"></i></button>
                             </div>
                         </form>

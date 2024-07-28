@@ -44,16 +44,17 @@ class Tandatangan extends Controller
     {
         // get data by id  
         $data_p['data_pengajuan'] = $this->model('pengajuan_model')->getPengajuanById($id);
-        $file_path = '/xampp/htdocs/digsig_native_v2/public/uploads/lembar/' . $data_p['data_pengajuan']['path'];  
+        $file_path = '/xampp/htdocs/digsig_native_v2/public/uploads/lembar/' . $data_p['data_pengajuan']['path'];
         $message = file_get_contents($file_path);
+
 
         //generate key 
         $privateKey = new EllipticCurve\PrivateKey;
         $publicKey = $privateKey->publicKey();
-
         //tandatangan atau sign
         $signature = EllipticCurve\Ecdsa::sign($message, $privateKey);
         $sig_b64 = $signature->toBase64();
+
 
         // QRcode render option ("chillerlan/php-qrcode" version ="^5.0")
         $myoptions = new QROptions;
@@ -70,7 +71,6 @@ class Tandatangan extends Controller
             QRMatrix::M_FINDER_DOT,
             QRMatrix::M_ALIGNMENT_DARK,
         ];
-
         // logo render optionn 
         // ecc level H is required for logo space
         $optionslogo = new QROptions([
@@ -84,7 +84,6 @@ class Tandatangan extends Controller
             'imageTransparent'    => false,
             'keepAsSquare'        => [QRMatrix::M_FINDER, QRMatrix::M_FINDER_DOT],
         ]);
-
         //render qrcode  
         $qrcode = new QRCode($myoptions);
         $token  = str_replace(array('\'', '"', ',', ';', '<', '>', '/', '+', '=', '&', '!', '#', '@', '$', '%'), '', $sig_b64);
@@ -97,24 +96,40 @@ class Tandatangan extends Controller
         file_put_contents($tmp_qrlogo, $gambarQR);
 
 
-        // render gambar qrcode kedalam pdf
+        // render gambar qrcode kedalam pdf dan hapus gambar dari temp
         $pdf = new FPDI();
         $lembar = $pdf->setSourceFile($file_path);
+        if ($_SESSION['jabatan'] == 'kaprodi') {
+            $x = 27;  // posisi horizontal
+            $y = 130; // posisi vertikal
+            $w = 35;  // lebar qr pada pdf
+            $h = 35;  // tinggi qr pada pdf
+        }elseif($_SESSION['jabatan'] == 'dekan'){
+            $x = 120;
+            $y = 130;
+            $w = 35;
+            $h = 35;
+        }else{
+            $x = 100;
+            $y = 178;
+            $w = 35;
+            $h = 35;
+        }
         for ($pageNo = 1; $pageNo <= $lembar; $pageNo++) {
             $tplId = $pdf->importPage($pageNo);
             $pdf->AddPage();
             $pdf->useTemplate($tplId, 0, 0);
-
             // Menambahkan QR code ke halaman PDF
             // Atur posisi dan ukuran sesuai kebutuhan (x,y,w,h)
-            $pdf->Image($tmp_qrlogo, 27, 130, 35, 35);
+            $pdf->Image($tmp_qrlogo, $x, $y, $w, $h);
         }
         $pdf->Output('F', $file_path);
+        unlink($tmp_qrlogo);
 
+
+        //array untuk ke database
         date_default_timezone_set('Asia/Jakarta');
         $currentDate = date('y-m-d H:i:s');
-
-        //inputan ke database
         $data['path_s'] = 'signed_' . $data_p['data_pengajuan']['path'];
         $data['privatekey'] = $privateKey->toPem();
         $data['publickey'] = $publicKey->toPem();
@@ -123,10 +138,9 @@ class Tandatangan extends Controller
         $data['signed_at'] = $currentDate;
         $data['lembar_id'] = $id;
         $data['dosen_id']  = $_SESSION['id_dosen'];
-
         //update status tandatangan
         $this->model('pengajuan_model')->updateStatusTTD($_SESSION['jabatan'], $id);
-
+        //input data ke database
         if ($this->model('tandatangan_model')->tambahTandatangan($data) > 0) {
             Flasher::setFlash('lembar pengajuan ', ' berhasil ditandatangan', 'success');
             header('Location:' . BASEURL . '/tandatangan/detail/' . $id);

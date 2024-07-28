@@ -50,21 +50,31 @@
                                         <?php
                                         if ($_SESSION['jabatan'] == 'kaprodi') {
                                             if ($data['data_pengajuan']['ttd_kaprodi'] == 0) {
-                                                echo '<button class="btn btn-primary mb-3" type="submit">Tandatangan</button>';
+                                                echo '<button class="btn btn-primary mt-3" type="submit">Tandatangan</button>';
                                             } else {
-                                                echo '<button class="btn btn-secondary mb-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                echo '<button class="btn btn-secondary mt-3" type="submit" disabled> Sudah di tandatangan</button>';
                                             }
                                         } elseif ($_SESSION['jabatan'] == 'dekan') {
-                                            if ($data['data_pengajuan']['ttd_dekan'] == 0) {
-                                                echo '<button class="btn btn-primary mb-3" type="submit">Tandatangan</button>';
+                                            if ($data['data_pengajuan']['ttd_kaprodi'] == 0) {
+                                                echo '<button class="btn btn-secondary mt-3" type="submit" disabled> tandatangan</button>
+                                                        <h6 class="text-danger"> Kaprodi belum tandatangan.</h6>';
                                             } else {
-                                                echo '<button class="btn btn-secondary mb-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                if ($data['data_pengajuan']['ttd_dekan'] == 0) {
+                                                    echo '<button class="btn btn-primary mt-3" type="submit">Tandatangan</button>';
+                                                } else {
+                                                    echo '<button class="btn btn-secondary mt-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                }
                                             }
                                         } elseif ($_SESSION['jabatan'] == 'ketua divisi') {
-                                            if ($data['data_pengajuan']['ttd_divisi'] == 0) {
-                                                echo '<button class="btn btn-primary mb-3" type="submit">Tandatangan</button>';
+                                            if ($data['data_pengajuan']['ttd_kaprodi'] == 0 && $data['data_pengajuan']['ttd_dekan'] == 0) {
+                                                echo '<button class="btn btn-secondary mt-3" type="submit" disabled> tandatangan</button>
+                                                        <h6 class="text-danger"> Kaprodi atau dekan belum tandatangan.</h6>';
                                             } else {
-                                                echo '<button class="btn btn-secondary mb-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                if ($data['data_pengajuan']['ttd_divisi'] == 0) {
+                                                    echo '<button class="btn btn-primary mb-3" type="submit">Tandatangan</button>';
+                                                } else {
+                                                    echo '<button class="btn btn-secondary mb-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                }
                                             }
                                         }
                                         ?>

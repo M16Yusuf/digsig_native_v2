@@ -58,7 +58,27 @@ class pengajuan_model
         return $this->db->rowCount();
     }
 
+    // update status tandatangan pada table lembar
+    public function updateStatusTTD($who, $id)
+    {
+        if ($who == 'kaprodi') {
+            $ttd_person = 'ttd_kaprodi';
+        } elseif ($who == 'dekan') {
+            $ttd_person = 'ttd_dekan';
+        } elseif ($who == 'ketua divisi') {
+            $ttd_person = 'ttd_divisi';
+        } else {
+            echo 'jabatan tidak ditemukan atau tidak diijinkan tandatangan';
+        }
+        $query = "UPDATE lembar_tb SET " . $ttd_person . " = 1  WHERE id_lembar =:id ";
+        $this->db->query($query);
+        $this->db->bind('id', $id);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
 
+    
+    // hapus data lembar_tb cascade otomatis kehapus tandatangan
     public function hapusDataPengajuan($id)
     {
         $query = "DELETE FROM " . $this->table . " WHERE id_lembar=:id";

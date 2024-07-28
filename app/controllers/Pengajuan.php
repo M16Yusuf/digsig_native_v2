@@ -87,8 +87,18 @@ class Pengajuan extends Controller
     // hapus data
     public function hapus($id)
     {
+        $temp['info'] = $this->model('pengajuan_model')->getPengajuanById($id);
+        $dir = "/xampp/htdocs/digsig_native_v2/public/uploads/lembar/";
+        $target = $dir.$temp['info']['path'];
         if ($this->model('pengajuan_model')->hapusDataPengajuan($id) > 0) {
-            Flasher::setFlash('lembar pengajuan ', ' berhasil dihapus', 'success');
+            // hapus file
+            if(file_exists($target)){
+                unlink($target);
+                Flasher::setFlash('lembar pengajuan ', ' berhasil dihapus'.$target, 'success');
+            }else{
+                Flasher::setFlash('lembar pengajuan ', ' gagal dihapus pathnya '.$target, 'warning');
+            }
+            
             header('Location:' . BASEURL . '/pengajuan');
             exit;
         } else {

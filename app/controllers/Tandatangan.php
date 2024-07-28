@@ -54,7 +54,6 @@ class Tandatangan extends Controller
         //tandatangan atau sign
         $signature = EllipticCurve\Ecdsa::sign($message, $privateKey);
         $sig_b64 = $signature->toBase64();
-        $re_b68 = \EllipticCurve\Signature::fromBase64($sig_b64);
 
         // QRcode render option ("chillerlan/php-qrcode" version ="^5.0")
         $myoptions = new QROptions;
@@ -128,6 +127,9 @@ class Tandatangan extends Controller
         $data['lembar_id'] = $id;
         $data['dosen_id']  = $_SESSION['id_dosen'];
 
+        //update status tandatangan
+        $this->model('pengajuan_model')->updateStatusTTD($_SESSION['jabatan'], $id);
+
         if ($this->model('tandatangan_model')->tambahTandatangan($data) > 0) {
             Flasher::setFlash('lembar pengajuan ', ' berhasil ditandatangan', 'success');
             header('Location:' . BASEURL . '/tandatangan/detail/' . $id);
@@ -135,7 +137,7 @@ class Tandatangan extends Controller
         }
     }
 
-    // cari data
+    // cari data berdasarkan subjek
     public function cari()
     {
         $subjek = $_POST['key_subjek'];

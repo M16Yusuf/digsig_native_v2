@@ -45,6 +45,7 @@
                                         </tr>
                                     </table>
                                     <form action="<?= BASEURL; ?>/tandatangan/tandatangan/<?= $data['data_pengajuan']['id_lembar']; ?>" method="post">
+                                        <!-- pengecekan  urutan tandatangan -->
                                         <!-- pengecekan jika $_session['jabatan'] baik itu prodi, dekan, 
                                         atau ketua divisi sudah tandatangan maka disable button-->
                                         <?php

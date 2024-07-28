@@ -2,7 +2,7 @@
     <div class="card w-100 w-md-75 w-lg-50">
         <!-- card header -->
         <div class="card-header">
-            <h5 class="mt-2">Detail Lembar Tandatangan yang Diajukan</h5>
+            <h5 class="mt-2">Penandatangan Lembar Pengajuan P2M</h5>
         </div>
 
         <!-- card body -->

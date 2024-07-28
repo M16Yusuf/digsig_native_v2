@@ -94,7 +94,7 @@ class Pengajuan extends Controller
             // hapus file
             if(file_exists($target)){
                 unlink($target);
-                Flasher::setFlash('lembar pengajuan ', ' berhasil dihapus'.$target, 'success');
+                Flasher::setFlash('lembar pengajuan ', ' berhasil dihapus ', 'success');
             }else{
                 Flasher::setFlash('lembar pengajuan ', ' gagal dihapus pathnya '.$target, 'warning');
             }

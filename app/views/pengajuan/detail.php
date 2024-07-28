@@ -25,7 +25,7 @@
                         <div class="col">
                             <div class="card">
                                 <div class="card-body text-bg-light">
-                                    <h6 class="card-title text-center"><?= $data['data_pengajuan']['subjek']; ?> </h6>
+                                    <h6 class="card-title text-center mb-3"><?= $data['data_pengajuan']['subjek']; ?> </h6>
                                     <table>
                                         <tr>
                                             <td>Pengaju </td>

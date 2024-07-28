@@ -44,8 +44,8 @@ class Tandatangan extends Controller
     {
         // get data by id  
         $data_p['data_pengajuan'] = $this->model('pengajuan_model')->getPengajuanById($id);
-        $filename = '/xampp/htdocs/digsig_native_v2/public/uploads/lembar/' . $data_p['data_pengajuan']['path']; // file dari path 
-        $message = file_get_contents($filename);
+        $file_path = '/xampp/htdocs/digsig_native_v2/public/uploads/lembar/' . $data_p['data_pengajuan']['path'];  
+        $message = file_get_contents($file_path);
 
         //generate key 
         $privateKey = new EllipticCurve\PrivateKey;
@@ -99,9 +99,7 @@ class Tandatangan extends Controller
 
         // render gambar qrcode kedalam pdf
         $pdf = new FPDI();
-        $file_path = "/xampp/htdocs/digsig_native_v2/public/uploads/lembar/" . $data_p['data_pengajuan']['path'];
-        var_dump($file_path);
-        $lembar = $pdf->setSourceFile($filename);
+        $lembar = $pdf->setSourceFile($file_path);
         for ($pageNo = 1; $pageNo <= $lembar; $pageNo++) {
             $tplId = $pdf->importPage($pageNo);
             $pdf->AddPage();
@@ -111,8 +109,7 @@ class Tandatangan extends Controller
             // Atur posisi dan ukuran sesuai kebutuhan (x,y,w,h)
             $pdf->Image($tmp_qrlogo, 27, 130, 35, 35);
         }
-        $signed_dir = '/xampp/htdocs/digsig_native_v2/public/uploads/signed/signed_' . $data_p['data_pengajuan']['path'];
-        $pdf->Output('F', $signed_dir);
+        $pdf->Output('F', $file_path);
 
         date_default_timezone_set('Asia/Jakarta');
         $currentDate = date('y-m-d H:i:s');

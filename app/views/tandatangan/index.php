@@ -75,11 +75,10 @@
             </div>
         <?php } else {
             echo '
-            <div class="card-body align-item center">
-                <p class="h2">
-                    tidak ada informasi
-                </p>
-            </div>';
-        } ?>
+            <div class="card-body p-5 text-center">
+                <h5 class="card-title">Sistem penandatanganan Pengajuan P2M</h5>
+                <p class="card-text">Hanya Kaprodi, dekan, dan ketua Divisi yang menandatangani.</p>
+            </div>
+        ';} ?>
     </div>
 </div>

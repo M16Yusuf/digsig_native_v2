@@ -5,9 +5,7 @@ Options -Multiviews
 # Mengaktifkan modul mode rewrite
 RewriteEngine On
 
-# Allow direct access to the upload directory
-# RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
-# RewriteRule ^ - [L]
+# Rewrite all requests to index.php
 
 # If the following conditions are true, then rewrite the URL:
 # If the requested filename is not a directory,
@@ -19,4 +17,5 @@ RewriteCond %{REQUEST_FILENAME} !-l
 
 # '^(.*)$' = apapun yang dituliskan url, arahkan ke placeholder '$1' pada index.php 
 # [L] = kalo ada rule yang sudah terpenuhi jangan jalankan rule lain setelah ini
-RewriteRule ^(.*)$ index.php?url=$1 [L]
+# append query string from request to substituted URL
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

@@ -3,7 +3,7 @@
 /* template  */
 html, body {
   height: 100%;
-  /* font-family: 'DM Sans', sans-serif; */
+  font-family: 'DM Sans', sans-serif;
 }
 
 .gfg {
@@ -47,11 +47,8 @@ html, body {
   border-radius: 2px;
 }
 
-/* bodderless */
-li.borderless { border-top: 0 none; }
 
-
-/* card dashboard */
+/* card list dashboard pengajuan dan tandatangan */
 .card {
   max-height: 95vh;
 }

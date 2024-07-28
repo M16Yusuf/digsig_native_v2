@@ -12,7 +12,7 @@ class App
         // var_dump($url);
 
         // controller
-        if (file_exists('../app/controllers/' . $url[0] . '.php')) {  // pengecekan controller berdasar input url dari browser
+        if (isset($url[0]) && file_exists('../app/controllers/' . $url[0] . '.php')) {  // pengecekan controller berdasar input url dari browser
             $this->controller = $url[0];                              // masukan nilai array pertama pada variable
             unset($url[0]);                                           // hilangkan nilai array pertama 
         }
@@ -44,5 +44,6 @@ class App
             $url = explode('/', $url);                        // ubah url jadi array dengan "/" sebagai pemisah
             return $url;
         }
+        return [];
     }
 }

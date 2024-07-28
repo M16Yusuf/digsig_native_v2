@@ -1,7 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center">
-
-
+    <!-- card begin -->
     <div class="card w-100 w-md-75 w-lg-50">
+
         <div class="card-header">
             <form action="<?= BASEURL; ?>/tandatangan/cari" method="post">
                 <div class="input-group mb-3">
@@ -10,77 +10,76 @@
                 </div>
             </form>
         </div>
-        <div class="card-body scrollable-list">
-            <!-- flasher output informasi -->
-            <?php Flasher::flash(); ?>
 
-            <!-- table  -->
-            <div class="table-scroll">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Judul</th>
-                            <th scope="col">Nama Pengaju</th>
-                            <th scope="col">tanggal pengajuan</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($data['data_pengajuan'] as $k) : ?>
-                            <tr>
-                                <th scope="col"> <?= $i++; ?></th>
-                                <td> <?= $k['subjek']; ?> </td>
-                                <td> <?= $k['nama']; ?></td>
-                                <td> <?= $k['created_at']; ?></td>
-                                <td>
-                                    <?php
-                                    if ($k['ttd_kaprodi'] == 0) {
-                                        echo '<i class="fa-solid fa-circle-xmark" style="color: grey;"></i> kaprodi belum';
-                                    } else {
-                                        echo '<i class="fa-solid fa-circle-check" style="color: green;"></i> kaprodi Sudah';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <a href="<?= BASEURL; ?>/tandatangan/detail/<?= $k['id_lembar']; ?>" class="btn btn-primary mb-3"> detail </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+        <!-- pegencekan jabatan -->
+        <?php if ($_SESSION['jabatan'] !== 'dosen') { ?>
+            <div class="card-body scrollable-list">
+                <!-- flasher output informasi -->
+                <?php Flasher::flash(); ?>
+                <?php $i = 1; ?>
+                <?php foreach ($data['data_pengajuan'] as $k) : ?>
+                    <div class="list-group">
+                        <a href="<?= BASEURL; ?>/tandatangan/detail/<?= $k['id_lembar']; ?>" class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="p-1">
+                                    <h6 class="card-text"> <?= $k['subjek']; ?></h6>
+                                    <p class="card-text fs-6 text-body-secondary">
+                                        Pengaju : <?= $k['nama']; ?>
+                                        NIP : <?= $k['nip']; ?>
+                                    </p>
+                                </div>
 
-
-
-<!-- modal box content -->
-<div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Ajukan pengajuan tandatangan</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="<?= BASEURL; ?>/pengajuan/tambah" method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label"> Judul lembar yang akan ditandatangan </label>
-                        <input type="text" class="form-control" id="judul" name="judul">
+                                <div class="p-1">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="p-1">
+                                            <small class="card-text text-body-secondary">
+                                                <?php
+                                                $date = date_create($k['created_at']);
+                                                echo date_format($date, 'H:i, D d M Y');
+                                                ?>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="p-1">
+                                            <h6 class="card-text">
+                                                <?php
+                                                if ($_SESSION['jabatan'] == 'kaprodi') {
+                                                    if ($k['ttd_kaprodi'] == 0) {
+                                                        echo '<i class="fa-solid fa-circle-xmark" style="color: grey;"></i> Belum ditandatangan';
+                                                    } else {
+                                                        echo '<i class="fa-solid fa-circle-check" style="color: green;"></i> Sudah ditandatangan';
+                                                    }
+                                                } elseif ($_SESSION['jabatan'] == 'dekan') {
+                                                    if ($k['ttd_dekan'] == 0) {
+                                                        echo '<i class="fa-solid fa-circle-xmark" style="color: grey;"></i> Belum ditandatangan';
+                                                    } else {
+                                                        echo '<i class="fa-solid fa-circle-check" style="color: green;"></i> Sudah ditandatangan';
+                                                    }
+                                                } elseif ($_SESSION['jabatan'] == 'ketua divisi') {
+                                                    if ($k['ttd_divisi'] == 0) {
+                                                        echo '<i class="fa-solid fa-circle-xmark" style="color: grey;"></i> Belum ditandatangan';
+                                                    } else {
+                                                        echo '<i class="fa-solid fa-circle-check" style="color: green;"></i> Sudah ditandatangan';
+                                                    }
+                                                }
+                                                ?>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label"> Upload file lembar yang akan ditandatangan </label>
-                        <input type="file" class="form-control" id="file_input" name="file_input">
-                    </div>
+                <?php endforeach; ?>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">batal</button>
-                <button type="submit" class="btn btn-primary">Upload</button>
-            </div>
-            </form>
-        </div>
+        <?php } else {
+            echo '
+            <div class="card-body align-item center">
+                <p class="h2">
+                    tidak ada informasi
+                </p>
+            </div>';
+        } ?>
     </div>
 </div>

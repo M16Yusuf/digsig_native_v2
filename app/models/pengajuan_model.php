@@ -11,7 +11,7 @@ class pengajuan_model
         $this->db = new Database;
     }
 
-
+    // ambil semua data pengajuan
     public function getAllPengajuan()
     {
         $query = "SELECT lembar_tb.id_lembar, lembar_tb.subjek, lembar_tb.path, lembar_tb.created_at, dosen_tb.nama, dosen_tb.nip, lembar_tb.ttd_kaprodi, lembar_tb.ttd_dekan, lembar_tb.ttd_divisi
@@ -21,13 +21,26 @@ class pengajuan_model
         return $this->db->resultSet();
     }
 
+    // amil semua data pengajuan
     public function getPengajuanById($id)
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE id_lembar =:id';
+        $query = 'SELECT * FROM lembar_tb INNER JOIN dosen_tb ON dosen_tb.id_dosen = lembar_tb.dosen_id WHERE id_lembar =:id';
         $this->db->query($query);
         $this->db->bind('id', $id);
         return $this->db->single();
     }
+
+    // ambil semua data pengajuan berdasarkan orang yg login $_SESSION['nip']
+    public function getAllPengajuanBySession($nip)
+    {
+        $query = "SELECT lembar_tb.id_lembar, lembar_tb.subjek, lembar_tb.path, lembar_tb.created_at, dosen_tb.nama, dosen_tb.nip, lembar_tb.ttd_kaprodi, lembar_tb.ttd_dekan, lembar_tb.ttd_divisi
+        FROM lembar_tb INNER JOIN dosen_tb ON dosen_tb.id_dosen = lembar_tb.dosen_id WHERE dosen_tb.nip =:nip ORDER BY lembar_tb.created_at DESC";
+        //execute terjadi pada class database
+        $this->db->query($query);
+        $this->db->bind('nip', $nip);
+        return $this->db->resultSet();
+    }
+
 
     public function tambahDataPengajuan($data)
     {
@@ -45,6 +58,7 @@ class pengajuan_model
         return $this->db->rowCount();
     }
 
+
     public function hapusDataPengajuan($id)
     {
         $query = "DELETE FROM " . $this->table . " WHERE id_lembar=:id";
@@ -55,6 +69,7 @@ class pengajuan_model
         //cari db yang terpengaruh atau tidak
         return $this->db->rowCount();
     }
+
 
     public function cariDataPengajuan($subjek)
     {

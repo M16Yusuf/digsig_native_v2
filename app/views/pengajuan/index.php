@@ -4,12 +4,12 @@
             <!-- card header -->
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <div class="p-1">
+                    <div class="p-0">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Pengajuan Baru +
                         </button>
                     </div>
-                    <div class="p-1">
+                    <div class="p-0">
                         <form action="<?= BASEURL; ?>/pengajuan/cari" method="post">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Cari berdasar subjek ..." name="key_subjek" id="key_subjek">
@@ -23,7 +23,6 @@
             <!-- card body -->
             <div class="card-body scrollable-list">
                 <!-- test list -->
-                <?php $i = 1; ?>
                 <?php foreach ($data['data_pengajuan'] as $k) : ?>
                     <div class="list-group">
                         <a href="<?= BASEURL; ?>/pengajuan/detail/<?= $k['id_lembar']; ?>" class="list-group-item list-group-item-action">

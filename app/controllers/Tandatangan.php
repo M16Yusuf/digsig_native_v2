@@ -11,11 +11,17 @@ use setasign\Fpdi\Fpdi;
 class Tandatangan extends Controller
 {
 
+    public function __construct()
+    {
+        Auth::check();
+    }
+
+    //tampil pengajuan berdasarkan penandatangan
     public function index()
     {
         $data['title'] = 'dashbaord tandatangan';
         $data['data_pengajuan'] = $this->model('pengajuan_model')->getAllPengajuan();
-        // view 
+
         $this->view('templates/header', $data);
         $this->view('tandatangan/index', $data);
         $this->view('templates/footer');
@@ -23,9 +29,12 @@ class Tandatangan extends Controller
 
     public function detail($id)
     {
-        $data['title'] = 'Detail pengajuan';
-        $data['data_pengajuan'] = $this->model('pengajuan_model')->getPengajuanById($id);
-
+        $data['title'] = 'Detail tandatangan';
+        // ambil data pengajuan by id  
+        $data['data_pengajuan'] = $this->model('tandatangan_model')->getTandatanganById($id);
+        // ambil semua data tandatangan
+        $data['ttd_pengajuan'] = $this->model('tandatangan_model')->getTandatanganbyLembar($id);
+        // view halaman & data 
         $this->view('templates/header', $data);
         $this->view('tandatangan/detail', $data);
         $this->view('templates/footer');
@@ -62,7 +71,7 @@ class Tandatangan extends Controller
             QRMatrix::M_FINDER_DOT,
             QRMatrix::M_ALIGNMENT_DARK,
         ];
-        
+
         // logo render optionn 
         // ecc level H is required for logo space
         $optionslogo = new QROptions([
@@ -79,8 +88,8 @@ class Tandatangan extends Controller
 
         //render qrcode  
         $qrcode = new QRCode($myoptions);
-        $token  = str_replace(array( '\'','"',',',';','<','>','/','+','=','&','!','#','@','$','%' ),'',$sig_b64);
-        $qrcode->addByteSegment('http://localhost/digsig_native_v2/public/verifikasi/'.$token);
+        $token  = str_replace(array('\'', '"', ',', ';', '<', '>', '/', '+', '=', '&', '!', '#', '@', '$', '%'), '', $sig_b64);
+        $qrcode->addByteSegment('http://localhost/digsig_native_v2/public/verifikasi/' . $token);
         // header('Content-type: image/png');
         $qrdenganlogo = new QRImageWithLogo($optionslogo, $qrcode->getMatrix());
         $tmp_qrlogo  = "/xampp/htdocs/digsig_native_v2/public/tmp/temp_qrcodelogo.png";
@@ -88,10 +97,10 @@ class Tandatangan extends Controller
         $gambarQR = $qrdenganlogo->dump($tmp_qrlogo, $logo_unikom);
         file_put_contents($tmp_qrlogo, $gambarQR);
 
-      
+
         // render gambar qrcode kedalam pdf
         $pdf = new FPDI();
-        $file_path = "/xampp/htdocs/digsig_native_v2/public/uploads/lembar/".$data_p['data_pengajuan']['path']; 
+        $file_path = "/xampp/htdocs/digsig_native_v2/public/uploads/lembar/" . $data_p['data_pengajuan']['path'];
         var_dump($file_path);
         $lembar = $pdf->setSourceFile($filename);
         for ($pageNo = 1; $pageNo <= $lembar; $pageNo++) {
@@ -103,14 +112,14 @@ class Tandatangan extends Controller
             // Atur posisi dan ukuran sesuai kebutuhan (x,y,w,h)
             $pdf->Image($tmp_qrlogo, 27, 130, 35, 35);
         }
-        $signed_dir = '/xampp/htdocs/digsig_native_v2/public/uploads/signed/signed_'.$data_p['data_pengajuan']['path'];
-        $pdf->Output('F', $signed_dir );
-        
+        $signed_dir = '/xampp/htdocs/digsig_native_v2/public/uploads/signed/signed_' . $data_p['data_pengajuan']['path'];
+        $pdf->Output('F', $signed_dir);
+
         date_default_timezone_set('Asia/Jakarta');
         $currentDate = date('y-m-d H:i:s');
 
         //inputan ke database
-        $data['path'] = 'signed_'.$data_p['data_pengajuan']['path'];
+        $data['path_s'] = 'signed_' . $data_p['data_pengajuan']['path'];
         $data['privatekey'] = $privateKey->toPem();
         $data['publickey'] = $publicKey->toPem();
         $data['signature'] = $sig_b64;
@@ -118,10 +127,10 @@ class Tandatangan extends Controller
         $data['signed_at'] = $currentDate;
         $data['lembar_id'] = $id;
         $data['dosen_id']  = $_SESSION['id_dosen'];
-        
+
         if ($this->model('tandatangan_model')->tambahTandatangan($data) > 0) {
             Flasher::setFlash('lembar pengajuan ', ' berhasil ditandatangan', 'success');
-            header('Location:' . BASEURL . '/tandatangan/detail/'.$id);
+            header('Location:' . BASEURL . '/tandatangan/detail/' . $id);
             exit;
         }
     }
@@ -136,6 +145,5 @@ class Tandatangan extends Controller
         $this->view('templates/header', $data);
         $this->view('tandatangan/index', $data);
         $this->view('templates/footer');
-        
     }
 }

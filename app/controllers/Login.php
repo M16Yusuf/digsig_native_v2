@@ -21,15 +21,14 @@ class login extends Controller
             $_SESSION['nip'] = $user['nip'];
             $_SESSION['nama'] = $user['nama'];
             $_SESSION['id_dosen'] = $user['id_dosen'];
+            $_SESSION['jabatan']  = $user['jabatan'];
 
             // tampilkan halaman pengajaun beserta datanya
-            $data['title'] = 'Dashboard pengajuan';
-            $data['data_pengajuan'] = $this->model('pengajuan_model')->getAllPengajuan();
+            // $data['title'] = 'Dashboard pengajuan';
+            // $data['data_pengajuan'] = $this->model('pengajuan_model')->getAllPengajuanBySession();
             Flasher::setFlash('Selamat datang ', $user['nama'], 'secondary');
-
-            $this->view('templates/header', $data);
-            $this->view('pengajuan/index', $data);
-            $this->view('templates/footer');
+            header('Location: ' . BASEURL . '/pengajuan');
+            
             exit;
         } else {
             Flasher::setFlash('NIP atau password ', ' salah ', 'danger');
@@ -43,6 +42,5 @@ class login extends Controller
         session_unset();
         session_destroy();
         $this->view('login/index');
-        exit;
     }
 }

@@ -2,22 +2,31 @@
 class Pengajuan extends Controller
 {
 
+    public function __construct()
+    {
+        Auth::check();
+    }
+
+    // data dashboard pengajuan
     public function index()
     {
-
         $data['title'] = 'Dashboard pengajuan';
-        $data['data_pengajuan'] = $this->model('pengajuan_model')->getAllPengajuan();
+        $data['data_pengajuan'] = $this->model('pengajuan_model')->getAllPengajuanBySession($_SESSION['nip']);
         // view
         $this->view('templates/header', $data);
         $this->view('pengajuan/index', $data);
         $this->view('templates/footer');
     }
 
+    // get data halaman pengajuan/detal
     public function detail($id)
     {
         $data['title'] = 'Detail pengajuan';
+        // ambil data pengajuan dari id
         $data['data_pengajuan'] = $this->model('pengajuan_model')->getPengajuanById($id);
-        // view
+        // ambil semua data tandatangan
+        $data['ttd_pengajuan'] = $this->model('tandatangan_model')->getTandatanganbyLembar($id);
+        // view halaman & data 
         $this->view('templates/header', $data);
         $this->view('pengajuan/detail', $data);
         $this->view('templates/footer');

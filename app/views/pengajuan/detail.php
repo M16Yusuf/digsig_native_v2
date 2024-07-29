@@ -3,7 +3,7 @@
         <!-- card header -->
         <div class="card-header d-flex justify-content-between">
             <div class="p-0">
-                <h5 class="fs-5">Detail Lembar Tandatangan yang Diajukan</h5>
+                <h5 class="fw-bolder mb-0">Detail Lembar Tandatangan yang Diajukan</h5>
             </div>
             <div class="p-0">
                 <a href="<?= BASEURL; ?>/pengajuan/hapus/<?= $data['data_pengajuan']['id_lembar']; ?>" class="btn btn-outline-danger" onclick="return confirm('Data yang sudah dihapus tidak bisa dipulihkan, Yakin dihapus?')">
@@ -25,7 +25,7 @@
                         <div class="col">
                             <div class="card">
                                 <div class="card-body small text-bg-light">
-                                    <h6 class="card-title text-center mb-3"><?= $data['data_pengajuan']['subjek']; ?> </h6>
+                                    <h6 class="card-title fw-bolder text-center mb-3"><?= $data['data_pengajuan']['subjek']; ?> </h6>
                                     <table>
                                         <tr>
                                             <td>Pengaju </td>
@@ -58,46 +58,39 @@
                         <div class="col">
                             <div class="card">
                                 <div class="card-body text-bg-light small">
-                                    <h6 class="card-subtitle text-body-secondary mb-1">List tandatangan </h6>
+                                    <p class="fw-bolder text-muted mb-1">LIST TANDATANGAN </p>
                                     <?php foreach ($data['ttd_pengajuan'] as $k) : ?>
                                         <div class="list-group ">
                                             <a href="<?= BASEURL ?>/verifikasi/<?= $k['token'] ?>" target="_blank" class="list-group-item list-group-item-action">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="p-0">
-                                                        <h6 class="card-subtitle text-muted">
+                                                        <h6 class="card-subtitle fw-bolder text-muted">
                                                             <?= $k['jabatan']; ?>
                                                         </h6>
                                                     </div>
                                                     <div class="p-0">
-                                                        <table>
-                                                            <tr>
-                                                                <td> Nama </td>
-                                                                <td> : <?= $k['nama']; ?> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>NIP </td>
-                                                                <td> : <?= $k['nip']; ?> </td>
-                                                            </tr>
-                                                            <tr>
-
-                                                            </tr>
-                                                        </table>
+                                                        <p class="small fw-bolder text-muted mb-0"> Nama : </p>
+                                                        <p class="mb-0"> <?= $k['nama']; ?> </p>           
                                                     </div>
                                                     <div class="p-0">
-                                                        <td>Tanggal tandatangan </td>
-                                                        <td> :
+                                                        <p class="small fw-bolder text-muted mb-0"> NIP :</p> 
+                                                        <p class="mb-0"> <?= $k['nip']; ?> </p> 
+                                                    </div>
+                                                    <div class="p-0">
+                                                        <p class="small fw-bolder text-muted mb-0" >Tanggal tandatangan </p>
+                                                        <p class="mb-0">
                                                             <?php
                                                             $date = date_create($k['signed_at']);
                                                             echo date_format($date, 'H:i, D d M Y');
                                                             ?>
-                                                        </td>
+                                                        </p>
                                                     </div>
                                                 </div>
 
-                                                <p class="card-subtitle small text-body-secondary mt-2">
+                                                <p class="card-subtitle small fw-bolder text-body-secondary mt-1">
                                                     Signature
                                                 </p>
-                                                <p class="small text-body-secondary">
+                                                <p class="small text-body-secondary mb-0">
                                                     <?= $k['signature']; ?>
                                                 </p>
                                             </a>
@@ -107,6 +100,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- end card -->
                 </div>
             </div>
         </div>

@@ -24,8 +24,8 @@
         <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-white offcanvas-md offcanvas-start">
             <div class="navbar bg-dark">
                 <div class="container-fluid">
-                    <a href="#" class="navbar-brand text-white">
-                        <img src="<?= BASEURL; ?>/img/logo_unikom.png" class="d-inline-block align-text-top" style="width: 30px;">
+                    <a href="#" class="navbar-brand text-white fw-bolder">
+                        <img src="<?= BASEURL; ?>/img/logo_unikom.png" class="d-inline-block align-text-top" style="width: 25px;">
                         UNIKOM DIGSIG
                     </a>
                 </div>

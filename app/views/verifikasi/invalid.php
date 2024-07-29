@@ -35,7 +35,7 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title text-center">Divisi P2M Universitas Komputer Indonesia</h4>
+                        <h4 class="card-title fw-bolder text-center">Divisi P2M Universitas Komputer Indonesia</h4>
                         <ul class="list-group">
                             <li class="list-group-item border-0">
                                 <?php Flasher::flash(); ?>

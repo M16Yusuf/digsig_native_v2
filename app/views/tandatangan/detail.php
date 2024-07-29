@@ -67,7 +67,7 @@
                                                 }
                                             }
                                         } elseif ($_SESSION['jabatan'] == 'ketua divisi') {
-                                            if ($data['data_pengajuan']['ttd_kaprodi'] == 0 && $data['data_pengajuan']['ttd_dekan'] == 0) {
+                                            if ($data['data_pengajuan']['ttd_kaprodi'] && $data['data_pengajuan']['ttd_dekan'] == 0) {
                                                 echo '<button class="btn btn-secondary mt-3" type="submit" disabled> tandatangan</button>
                                                         <h6 class="text-danger"> Kaprodi atau dekan belum tandatangan.</h6>';
                                             } else {

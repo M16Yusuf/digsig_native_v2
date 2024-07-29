@@ -38,15 +38,15 @@
                         <h4 class="card-title text-center">Divisi P2M Universitas Komputer Indonesia</h4>
                         <ul class="list-group">
                             <li class="list-group-item border-0">
-                                <small>Subjek </small>
+                                <p class="small fw-bolder text-muted mb-0">Subjek </p>
                                 <p class="mb-3"><?= $data['data_verifikasi']['subjek']; ?></p>
                             </li>
                             <li class="list-group-item border-0">
-                                <small>Nama Dokumen</small>
+                                <p class="small fw-bolder text-muted mb-0">Nama Dokumen</p>
                                 <p class="mb-3"><?= $data['data_verifikasi']['path']; ?></p>
                             </li>
                             <li class="list-group-item border-0">
-                                <small>Signature</small>
+                                <p class="small fw-bolder text-muted mb-0">Signature</p>
                                 <p class="mb-3"><?= $data['data_verifikasi']['signature']; ?> </p>
                             </li>
                             <li class="list-group-item border-0">
@@ -55,15 +55,15 @@
                                 <div class="card">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <small>Nama :</small>
+                                            <p class="small fw-bolder text-muted mb-0">Nama :</p>
                                             <h6 class="mb-1"><?= $data['data_verifikasi']['nama']; ?></h6>
                                         </div>
                                         <div class="col-md-4">
-                                            <small>NIP :</small>
+                                            <p class="small fw-bolder text-muted mb-0">NIP :</p>
                                             <h6 class="mb-1"><?= $data['data_verifikasi']['nip']; ?></h6>
                                         </div>
                                         <div class="col-md-4">
-                                            <small>Tanggal :</small>
+                                            <p class="small fw-bolder text-muted mb-0">Tanggal :</p>
                                             <h6 class="mb-1">
                                                 <?php
                                                 $date = date_create($data['data_verifikasi']['signed_at']);

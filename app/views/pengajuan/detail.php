@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="card">
-                                <div class="card-body text-bg-light">
+                                <div class="card-body small text-bg-light">
                                     <h6 class="card-title text-center mb-3"><?= $data['data_pengajuan']['subjek']; ?> </h6>
                                     <table>
                                         <tr>
@@ -57,24 +57,33 @@
                     <div class="row pt-3">
                         <div class="col">
                             <div class="card">
-                                <div class="card-body text-bg-light">
-                                    <h6 class="card-subtitle text-body-secondary">List tandatangan </h6>
+                                <div class="card-body text-bg-light small">
+                                    <h6 class="card-subtitle text-body-secondary mb-1">List tandatangan </h6>
                                     <?php foreach ($data['ttd_pengajuan'] as $k) : ?>
                                         <div class="list-group ">
                                             <a href="<?= BASEURL ?>/verifikasi/<?= $k['token'] ?>" target="_blank" class="list-group-item list-group-item-action">
-                                                <h6 class="card-subtitle">
-                                                    <?= $k['jabatan']; ?>
-                                                </h6>
-                                                <table>
-                                                    <tr>
-                                                        <td>Nama </td>
-                                                        <td> : <?= $k['nama']; ?> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>NIP </td>
-                                                        <td> : <?= $k['nip']; ?> </td>
-                                                    </tr>
-                                                    <tr>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="p-0">
+                                                        <h6 class="card-subtitle text-muted">
+                                                            <?= $k['jabatan']; ?>
+                                                        </h6>
+                                                    </div>
+                                                    <div class="p-0">
+                                                        <table>
+                                                            <tr>
+                                                                <td> Nama </td>
+                                                                <td> : <?= $k['nama']; ?> </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>NIP </td>
+                                                                <td> : <?= $k['nip']; ?> </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="p-0">
                                                         <td>Tanggal tandatangan </td>
                                                         <td> :
                                                             <?php
@@ -82,12 +91,13 @@
                                                             echo date_format($date, 'H:i, D d M Y');
                                                             ?>
                                                         </td>
-                                                    </tr>
-                                                </table>
-                                                <h6 class="card-subtitle text-body-secondary mt-2">
+                                                    </div>
+                                                </div>
+
+                                                <p class="card-subtitle small text-body-secondary mt-2">
                                                     Signature
-                                                </h6>
-                                                <p class="text-body-secondary">
+                                                </p>
+                                                <p class="small text-body-secondary">
                                                     <?= $k['signature']; ?>
                                                 </p>
                                             </a>

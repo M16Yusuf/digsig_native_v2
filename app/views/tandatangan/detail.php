@@ -120,7 +120,7 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <h6 class="card-subtitle text-body-secondary mt-2">
+                                                <h6 class="card-subtitle small mt-2">
                                                     Signature
                                                 </h6>
                                                 <p class="text-body-secondary">

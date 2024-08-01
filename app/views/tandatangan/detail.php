@@ -58,7 +58,7 @@
                                         } elseif ($_SESSION['jabatan'] == 'dekan') {
                                             if ($data['data_pengajuan']['ttd_kaprodi'] == 0) {
                                                 echo '<button class="btn btn-secondary mt-3" type="submit" disabled> tandatangan</button>
-                                                        <h6 class="text-danger"> Kaprodi belum tandatangan.</h6>';
+                                                    <h6 class="text-danger"> Kaprodi belum tandatangan.</h6>';
                                             } else {
                                                 if ($data['data_pengajuan']['ttd_dekan'] == 0) {
                                                     echo '<button class="btn btn-primary mt-3" type="submit">Tandatangan</button>';
@@ -67,14 +67,19 @@
                                                 }
                                             }
                                         } elseif ($_SESSION['jabatan'] == 'ketua divisi') {
-                                            if ($data['data_pengajuan']['ttd_kaprodi'] && $data['data_pengajuan']['ttd_dekan'] == 0) {
+                                            if ($data['data_pengajuan']['ttd_kaprodi'] == 0) {
                                                 echo '<button class="btn btn-secondary mt-3" type="submit" disabled> tandatangan</button>
-                                                        <h6 class="text-danger"> Kaprodi atau dekan belum tandatangan.</h6>';
+                                                    <h6 class="text-danger"> Kaprodi dan Dekan belum tandatangan.</h6>';
                                             } else {
-                                                if ($data['data_pengajuan']['ttd_divisi'] == 0) {
-                                                    echo '<button class="btn btn-primary mb-3" type="submit">Tandatangan</button>';
+                                                if ($data['data_pengajuan']['ttd_dekan'] == 0) {
+                                                    echo '<button class="btn btn-secondary mt-3" type="submit" disabled> tandatangan</button>
+                                                        <h6 class="text-danger"> Dekan belum tandatangan.</h6>';
                                                 } else {
-                                                    echo '<button class="btn btn-secondary mb-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                    if ($data['data_pengajuan']['ttd_divisi'] == 0) {
+                                                        echo '<button class="btn btn-primary mb-3" type="submit">Tandatangan</button>';
+                                                    } else {
+                                                        echo '<button class="btn btn-secondary mb-3" type="submit" disabled> Sudah di tandatangan</button>';
+                                                    }
                                                 }
                                             }
                                         }
@@ -106,14 +111,14 @@
                                                     </div>
                                                     <div class="p-0">
                                                         <p class="small fw-bolder text-muted mb-0"> Nama : </p>
-                                                        <p class="mb-0"> <?= $k['nama']; ?> </p>           
+                                                        <p class="mb-0"> <?= $k['nama']; ?> </p>
                                                     </div>
                                                     <div class="p-0">
-                                                        <p class="small fw-bolder text-muted mb-0"> NIP :</p> 
-                                                        <p class="mb-0"> <?= $k['nip']; ?> </p> 
+                                                        <p class="small fw-bolder text-muted mb-0"> NIP :</p>
+                                                        <p class="mb-0"> <?= $k['nip']; ?> </p>
                                                     </div>
                                                     <div class="p-0">
-                                                        <p class="small fw-bolder text-muted mb-0" >Tanggal tandatangan </p>
+                                                        <p class="small fw-bolder text-muted mb-0">Tanggal tandatangan </p>
                                                         <p class="mb-0">
                                                             <?php
                                                             $date = date_create($k['signed_at']);

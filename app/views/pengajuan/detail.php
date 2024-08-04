@@ -15,9 +15,9 @@
         <div class="card-body scrollable-list">
             <div class="row">
                 <div class="col-md-5">
-                    <iframe src="<?= BASEURL; ?>/uploads/lembar/<?= $data['data_pengajuan']['path']; ?>" width="340" height="485" name="pdfframe">
+                    <object class="pdf" data="<?= BASEURL; ?>/uploads/lembar/<?= $data['data_pengajuan']['path']; ?>" width="360" height="485" name="pdfframe">
                         <p>This browser does not support PDF!</p>
-                    </iframe>
+                    </object>
                 </div>
                 <div class="col-md-7">
                     <!-- card pertama informasi lembar-->
@@ -70,14 +70,14 @@
                                                     </div>
                                                     <div class="p-0">
                                                         <p class="small fw-bolder text-muted mb-0"> Nama : </p>
-                                                        <p class="mb-0"> <?= $k['nama']; ?> </p>           
+                                                        <p class="mb-0"> <?= $k['nama']; ?> </p>
                                                     </div>
                                                     <div class="p-0">
-                                                        <p class="small fw-bolder text-muted mb-0"> NIP :</p> 
-                                                        <p class="mb-0"> <?= $k['nip']; ?> </p> 
+                                                        <p class="small fw-bolder text-muted mb-0"> NIP :</p>
+                                                        <p class="mb-0"> <?= $k['nip']; ?> </p>
                                                     </div>
                                                     <div class="p-0">
-                                                        <p class="small fw-bolder text-muted mb-0" >Tanggal tandatangan </p>
+                                                        <p class="small fw-bolder text-muted mb-0">Tanggal tandatangan </p>
                                                         <p class="mb-0">
                                                             <?php
                                                             $date = date_create($k['signed_at']);

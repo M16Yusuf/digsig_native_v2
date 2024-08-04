@@ -102,18 +102,12 @@ class Tandatangan extends Controller
         if ($_SESSION['jabatan'] == 'kaprodi') {
             $x = 27;  // posisi horizontal
             $y = 130; // posisi vertikal
-            $w = 35;  // lebar qr pada pdf
-            $h = 35;  // tinggi qr pada pdf
-        }elseif($_SESSION['jabatan'] == 'dekan'){
+        } elseif ($_SESSION['jabatan'] == 'dekan') {
             $x = 120;
             $y = 130;
-            $w = 35;
-            $h = 35;
-        }else{
+        } else {
             $x = 100;
             $y = 178;
-            $w = 35;
-            $h = 35;
         }
         for ($pageNo = 1; $pageNo <= $lembar; $pageNo++) {
             $tplId = $pdf->importPage($pageNo);
@@ -121,7 +115,11 @@ class Tandatangan extends Controller
             $pdf->useTemplate($tplId, 0, 0);
             // Menambahkan QR code ke halaman PDF
             // Atur posisi dan ukuran sesuai kebutuhan (x,y,w,h)
-            $pdf->Image($tmp_qrlogo, $x, $y, $w, $h);
+            $pdf->Image($tmp_qrlogo, $x, $y, 30, 30);
+            $pdf->SetFont('Times', '', 12);
+            $pdf->Text($x, $y+33, $_SESSION['nama']); // 3
+            $pdf->Text($x, $y+37, $_SESSION['nip']); // 4
+
         }
         $pdf->Output('F', $file_path);
         unlink($tmp_qrlogo);

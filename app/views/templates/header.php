@@ -7,7 +7,7 @@
     <!-- online booststrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- icon -->
-    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" /> 
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
@@ -44,8 +44,14 @@
                 </li>
                 <li class="nav-item mb-1">
                     <a href="#" class="sidebar-link">
-                        <i class="fa-regular fa-user"></i>
+                        <i class="fa-solid fa-id-card"></i>
                         <span class="topic"><?= $_SESSION['nip']; ?> </span>
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a href="#" class="sidebar-link">
+                        <i class="fa-regular fa-handshake"></i>
+                        <span class="topic"><?= $_SESSION['jabatan']; ?> </span>
                     </a>
                 </li>
                 <hr />

@@ -9,9 +9,9 @@
         <div class="card-body scrollable-list">
             <div class="row">
                 <div class="col-md-5">
-                    <iframe src="<?= BASEURL; ?>/uploads/lembar/<?= $data['data_pengajuan']['path']; ?>" width="340" height="485" name="pdfframe">
+                    <object class="pdf" data="<?= BASEURL; ?>/uploads/lembar/<?= $data['data_pengajuan']['path']; ?>" width="360" height="485" name="pdfframe">
                         <p>This browser does not support PDF!</p>
-                    </iframe>
+                    </object>
                 </div>
                 <div class="col-md-7">
 

@@ -117,8 +117,8 @@ class Tandatangan extends Controller
             // Atur posisi dan ukuran sesuai kebutuhan (x,y,w,h)
             $pdf->Image($tmp_qrlogo, $x, $y, 30, 30);
             $pdf->SetFont('Times', '', 12);
-            $pdf->Text($x, $y+33, $_SESSION['nama']); // 3
-            $pdf->Text($x, $y+37, $_SESSION['nip']); // 4
+            $pdf->Text($x, $y + 33, $_SESSION['nama']); // 3
+            $pdf->Text($x, $y + 37, 'NIP : ' . $_SESSION['nip']); // 4
 
         }
         $pdf->Output('F', $file_path);
